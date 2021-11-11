@@ -4,6 +4,8 @@
   "description": "part 3",
   "main": "index.js",
   "scripts": {
+    "run": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/ricevind/full-stack-open-be/issues"
   },
-  "homepage": "https://github.com/ricevind/full-stack-open-be#readme"
+  "homepage": "https://github.com/ricevind/full-stack-open-be#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
