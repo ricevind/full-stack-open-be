@@ -79,7 +79,7 @@ app.post('/api/persons', (req, res) => {
         res.end();
         return
     }
-    const personId = '' + Math.random() * 100000;
+    const personId = Math.random() * 100000;
 
     const person = { ...personCandidate, id: personId };
     persons.push(person);
