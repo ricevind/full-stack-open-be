@@ -1,16 +1,18 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors')
+const static = require('')
 const initPersons = require('./persons.json')
 
 let persons = [...initPersons];
 const app = express();
 
 
-morgan.token('body', (req) => JSON.stringify(req.body))
-
 app.use(cors())
+app.use(express.static('static'))
 app.use(express.json())
+
+morgan.token('body', (req) => console.log(req.body) || JSON.stringify(req.body))
 app.use(morgan(':method :url :status :total-time[3] :body'))
 
 
