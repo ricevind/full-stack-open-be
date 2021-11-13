@@ -8,8 +8,8 @@
 # Local History for Visual Studio Code
 .history/
 
-*/node_modules/*
-*/dist/*
+node_modules/
+dist/
 
 # Yarn
 .yarn/*
@@ -18,3 +18,5 @@
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+
+kupa.txt

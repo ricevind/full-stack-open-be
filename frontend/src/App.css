@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h2 {
+    color:green;
+  }
+
+  .notification {
+      background-color: lightseagreen;
+      color: green;
+      border: 1px solid green;
+      padding: 15px;
+      font-size: 22px;
+  }
+
+  .notification_success {
+    background-color: lightseagreen;
+    color: green;
+    border-color:  green;
+}
+
+.notification_error {
+    background-color: rosybrown;
+    color: red;
+    border-color:  red;
+}
