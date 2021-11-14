@@ -19,4 +19,4 @@ dist/
 !.yarn/sdks
 !.yarn/versions
 
-kupa.txt
+.env

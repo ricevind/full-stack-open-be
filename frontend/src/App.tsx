@@ -1,14 +1,14 @@
-import './App.css';
+import "./App.css";
 
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 import {
   Person,
   PersonCreationParams,
   Persons,
   PersonWithTemporaryId,
-} from './entities/person.model';
-import { personsService } from './entities/person.service';
+} from "./entities/person.model";
+import { personsService } from "./entities/person.service";
 
 function useIncludes<Elem>(arr: Elem[]): [(elem: Elem) => boolean] {
   const includes = (elem: Elem) => arr.includes(elem);
@@ -20,7 +20,9 @@ function usePersons() {
   const [persons, setPersons] = useState<Persons>([]);
 
   useEffect(() => {
-    personsService.getPersons().then((responseBody) => setPersons(responseBody));
+    personsService
+      .getPersons()
+      .then((responseBody) => setPersons(responseBody));
   }, []);
 
   return [persons, setPersons] as const;
@@ -29,12 +31,16 @@ function usePersons() {
 function App(): JSX.Element {
   const [persons, setPersons] = usePersons();
   const [newPerson, setNewPerson] = useState<PersonCreationParams>({
-    name: '',
-    number: '',
+    name: "",
+    number: "",
   });
   const [nameAlreadyExist] = useIncludes(persons.map(({ name }) => name));
-  const [successNotification, setSuccessNotification] = useState<null | string>(null);
-  const [errorNotification, setErrorNotification] = useState<null | string>(null);
+  const [successNotification, setSuccessNotification] = useState<null | string>(
+    null
+  );
+  const [errorNotification, setErrorNotification] = useState<null | string>(
+    null
+  );
 
   const displaySuccessMessage = (message: string) => {
     setSuccessNotification(message);
@@ -53,7 +59,7 @@ function App(): JSX.Element {
 
     if (nameAlreadyExist(newPerson.name)) {
       const shouldReplace = confirm(
-        `${newPerson.name} is already in teh phone book, replace the old number with a new one ?`,
+        `${newPerson.name} is already in teh phone book, replace the old number with a new one ?`
       );
 
       if (!shouldReplace) {
@@ -69,8 +75,10 @@ function App(): JSX.Element {
 
         personsService
           .updatePerson(updatedPerson)
-          .then(() => setNewPerson({ name: '', number: '' }))
-          .then(() => displaySuccessMessage(`${updatedPerson.name} has been updated`))
+          .then(() => setNewPerson({ name: "", number: "" }))
+          .then(() =>
+            displaySuccessMessage(`${updatedPerson.name} has been updated`)
+          )
           .catch(() => {
             return setPersons(persons);
           });
@@ -79,17 +87,20 @@ function App(): JSX.Element {
       }
     }
 
-    const temporaryId = Math.random() * 1000 + '';
-    const newPersonWithTemporaryId: PersonWithTemporaryId = { ...newPerson, temporaryId };
+    const temporaryId = Math.random() * 1000 + "";
+    const newPersonWithTemporaryId: PersonWithTemporaryId = {
+      ...newPerson,
+      temporaryId,
+    };
     setPersons(persons.concat(newPersonWithTemporaryId));
-    setNewPerson({ name: '', number: '' });
+    setNewPerson({ name: "", number: "" });
 
     personsService
       .addPerson(newPerson)
       .then((data) =>
         setPersons((persons) =>
-          Person.removePersonById(persons, temporaryId).concat(data),
-        ),
+          Person.removePersonById(persons, temporaryId).concat(data)
+        )
       )
       .then(() => displaySuccessMessage(`${newPerson.name} has been created`));
   };
@@ -102,9 +113,10 @@ function App(): JSX.Element {
       setPersons(Person.removePerson(persons, person));
 
       personsService.deletePerson(personServerId).catch((e) => {
-        console.log(e);
         if (e === 404) {
-          displayErrorMessage(`${person.name} was already removed from the server`);
+          displayErrorMessage(
+            `${person.name} was already removed from the server`
+          );
           return;
         }
 
@@ -131,7 +143,8 @@ function App(): JSX.Element {
           name: <input value={newPerson.name} onChange={onNewNameChange} />
         </div>
         <div>
-          number: <input value={newPerson.number} onChange={onNewNumberChange} />
+          number:{" "}
+          <input value={newPerson.number} onChange={onNewNumberChange} />
         </div>
         <div>
           <button type="submit">add</button>
@@ -140,14 +153,18 @@ function App(): JSX.Element {
       <h2>Numbers</h2>
 
       {successNotification && (
-        <div className="notification notification_success">{successNotification}</div>
+        <div className="notification notification_success">
+          {successNotification}
+        </div>
       )}
       {errorNotification && (
-        <div className="notification notification_error">{errorNotification}</div>
+        <div className="notification notification_error">
+          {errorNotification}
+        </div>
       )}
 
       {persons.map((person) => (
-        <div key={person.name} style={{ display: 'flex' }}>
+        <div key={person.name} style={{ display: "flex" }}>
           <div>{person.name}</div>
           <div>{person.number}</div>
           <button onClick={() => onDeletePerson(person)} type="button">
