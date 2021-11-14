@@ -102,7 +102,11 @@ function App(): JSX.Element {
           Person.removePersonById(persons, temporaryId).concat(data)
         )
       )
-      .then(() => displaySuccessMessage(`${newPerson.name} has been created`));
+      .then(() => displaySuccessMessage(`${newPerson.name} has been created`))
+      .catch((e) => {
+        setPersons((persons) => Person.removePersonById(persons, temporaryId));
+        displayErrorMessage(e.message);
+      });
   };
 
   const onDeletePerson = (person: Person) => {

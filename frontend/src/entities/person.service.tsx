@@ -20,7 +20,14 @@ const addPerson = (person: PersonCreationParams) =>
     method: "POST",
     body: JSON.stringify(person),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
-  }).then((response) => response.json());
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      if (json.error) {
+        throw new Error(json.error);
+      }
+      return json;
+    });
 
 const deletePerson = (id: string | undefined) => {
   if (id) {

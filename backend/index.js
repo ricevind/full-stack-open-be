@@ -77,43 +77,12 @@ app.put('/api/persons/:id', (req, res, next) => {
 
 app.post('/api/persons', (req, res, next) => {
 
-    const personCandidate = req.body || {};
-    const hasRequiredKeys = 'name' in personCandidate && 'number' in personCandidate;
+    const personCandidate = req.body;
 
-    if (!hasRequiredKeys) {
-        res.status(400);
-        res.json({
-            error: `Required properties are name and number`
-        })
-        return
-    }
-
-    const keysHasCorrectValueTypes = typeof personCandidate.name === 'string' && typeof personCandidate.number === 'string'
-    if (!keysHasCorrectValueTypes) {
-        res.status(400);
-        res.json({
-            error: `Required type is {number: string, name: string}`
-        })
-        return
-    }
-
-
-    personModel.isNameTaken(personCandidate.name).then(isNameTaken => {
-
-        if (isNameTaken) {
-            res.statusMessage = `${personCandidate.name} Exists`;
-            res.status(409);
-            res.end();
-            return
-        }
-
-        return personModel.addPerson(personCandidate).then(person => {
-            res.status(201);
-            res.json(person)
-        })
+    personModel.addPerson(personCandidate).then(person => {
+        res.status(201);
+        res.json(person)
     }).catch(e => next(e))
-
-
 
 })
 
@@ -127,6 +96,11 @@ app.use(unknownEndpoint)
 function handleError(error, req, res, next) {
     if (error.name === 'CastError') {
         return res.status(400).send({ error: 'malformatted id' })
+    }
+
+    if (error.name === 'ValidationError') {
+        console.error(JSON.stringify(error, null, 2))
+        return res.status(400).send({ error: error.message })
     }
 
     next(error)

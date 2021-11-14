@@ -3,7 +3,5 @@ PUT http://localhost:3001/api/persons/619104c773f71c9829347a87
 Content-Type: application/json
 
 {
-  "name": "Michal Kwasniewski",
-  "number": "new number",
-  "id": "619104c773f71c9829347a87"
+  "number": "new number3 2"
 }
