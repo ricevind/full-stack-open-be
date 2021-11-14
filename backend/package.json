@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "lint": "eslint ./**/*.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "git+https://github.com/ricevind/full-stack-open-be.git",
@@ -24,6 +25,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "eslint": "^7.2.0"
   }
 }
