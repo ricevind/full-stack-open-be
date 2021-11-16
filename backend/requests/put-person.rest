@@ -3,5 +3,6 @@ PUT http://localhost:3001/api/persons/619104c773f71c9829347a87
 Content-Type: application/json
 
 {
-  "number": "new number3 2"
+  "name": "mk",
+  "number": "new number3 2 s"
 }

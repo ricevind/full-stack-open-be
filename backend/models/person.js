@@ -6,7 +6,7 @@ const personSchema = new mongoose.Schema({
         type: String, required: true, unique: true, minLength: 3
     },
     number: {
-        type: String, required: true
+        type: String, required: true, minlength: 8
     },
 });
 
@@ -46,9 +46,9 @@ function isNameTaken(name) {
 }
 
 function updatePerson(personId, person) {
-    return Person.findByIdAndUpdate(personId, person, { new: true });
+    return Person.findByIdAndUpdate(personId, person, { new: true, runValidators: true });
 }
 
-module.exports.person = {
+module.exports = {
     addPerson, getPersons, getPerson, deletePerson, isNameTaken, updatePerson
 };

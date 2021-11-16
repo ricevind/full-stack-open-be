@@ -1,3 +1,3 @@
-const { person } = require('./person.js');
+const person = require('./person.js');
 
 module.exports.personModel = person;
